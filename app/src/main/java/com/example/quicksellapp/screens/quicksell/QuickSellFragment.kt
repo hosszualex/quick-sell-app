@@ -12,14 +12,23 @@ import com.example.quicksellapp.databinding.FragmentQuickSellBinding
 import com.example.quicksellapp.model.ErrorResponse
 import com.example.quicksellapp.model.Product
 
-class QuickSellFragment: Fragment() {
+class QuickSellFragment: Fragment(), ProductsAdapter.IOnProductClickListener {
     private lateinit var binding: FragmentQuickSellBinding
     private lateinit var viewModel: QuickSellViewModel
+    private lateinit var adapter: ProductsAdapter
 
     private val onGetProducts = Observer<List<Product>> { products ->
-        //TODO adapter
-        val asd = 0
+        if (!this::adapter.isInitialized) {
+            initializeAdapter()
+        }
+        adapter.setDataSource(products)
     }
+
+    private fun initializeAdapter() {
+        adapter = ProductsAdapter(this)
+        binding.rvPosts.adapter = adapter
+    }
+
 
     private val onError = Observer<ErrorResponse> { onError ->
         Toast.makeText(requireContext(), "Error Message: " + onError.errorMessage + "\nError Code: " + onError.errorCode, Toast.LENGTH_LONG).show()
@@ -52,5 +61,9 @@ class QuickSellFragment: Fragment() {
     private fun connectViewModel() {
         viewModel.onGetProducts.observe(viewLifecycleOwner, onGetProducts)
         viewModel.onError.observe(viewLifecycleOwner, onError)
+    }
+
+    override fun onProductClicked(order: Product) {
+        //TODO("Not yet implemented")
     }
 }
