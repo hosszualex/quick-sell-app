@@ -30,6 +30,24 @@ class ProductsAdapter(private val clickListener: IOnProductClickListener): Recyc
         diffResults.dispatchUpdatesTo(this)
     }
 
+    fun updateItemStatus(productId: Int, amount: Int) {
+        this.items.forEachIndexed { index, product ->
+            if (product.id == productId) {
+                updateIfNewStatus(product, amount, index)
+                return@forEachIndexed
+            }
+        }
+    }
+
+    private fun updateIfNewStatus(
+        product: Product,
+        amount: Int,
+        index: Int
+    ) {
+        product.amount = amount
+        notifyItemChanged(index)
+    }
+
     inner class ViewHolder(private val binding: ListItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Product) {
             binding.item = item
@@ -39,6 +57,6 @@ class ProductsAdapter(private val clickListener: IOnProductClickListener): Recyc
     }
 
     interface IOnProductClickListener {
-        fun onProductClicked(order: Product)
+        fun onProductClicked(product: Product)
     }
 }

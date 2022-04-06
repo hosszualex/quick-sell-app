@@ -2,7 +2,9 @@ package com.example.quicksellapp.extensions
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.quicksellapp.Constants
 import com.example.quicksellapp.R
 
 val FragmentActivity.supportFragmentManagerTransaction: FragmentTransaction
@@ -30,6 +32,10 @@ fun FragmentActivity.addFragmentOnTopWithAnimationLeftToRight(fragment: Fragment
         .addToBackStack(tag)
         .setReorderingAllowed(true)
         .commit()
+}
+
+fun FragmentActivity.popBackStackUntilFragmentInclusive(tag: String) {
+    supportFragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 }
 
 fun FragmentActivity.lastFragment(): Fragment? {

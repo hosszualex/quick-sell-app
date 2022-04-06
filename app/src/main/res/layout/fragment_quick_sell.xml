@@ -7,6 +7,10 @@
 
         <import type="android.view.View" />
 
+        <variable
+            name="viewModel"
+            type="com.example.quicksellapp.screens.quicksell.QuickSellViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,11 +22,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvHeader"
+            style="@style/HeaderText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_margin="16dp"
-            app:layout_constraintVertical_weight="1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +35,7 @@
             android:id="@+id/rvPosts"
             android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_marginVertical="8dp"
+            android:layout_marginVertical="32dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/tvHeader"
             app:layout_constraintBottom_toTopOf="@+id/btnPay"
@@ -42,10 +45,11 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPay"
             style="@style/PrimaryButton"
-            android:text=""
+            android:text="Pay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintVertical_weight="1"
+            android:onClick="@{() -> viewModel.onPayClicked()}"
+            app:layout_constraintTop_toBottomOf="@+id/rvPosts"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

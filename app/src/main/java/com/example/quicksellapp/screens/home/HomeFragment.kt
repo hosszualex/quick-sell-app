@@ -30,7 +30,7 @@ class HomeFragment: Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.executePendingBindings()
-        //TODO
+        //TODO develop language feature
         val items = listOf("English", "Romanian")
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item_language, items)
         (binding.tilLanguageMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)

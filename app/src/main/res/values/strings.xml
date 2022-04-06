@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">quicksellapp</string>
+    <string name="app_name">Quick Sell</string>
     <string name="products_header">Products</string>
     <string name="quick_sell_string">Quick Sell</string>
 </resources>

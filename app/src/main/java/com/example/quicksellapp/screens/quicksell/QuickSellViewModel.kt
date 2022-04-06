@@ -21,6 +21,10 @@ class QuickSellViewModel: ViewModel() {
     val onGetProducts: LiveData<List<Product>>
         get() = _onGetProducts
 
+    private val _onNavigate = MutableLiveData<Float>()
+    val onNavigate: LiveData<Float>
+        get() = _onNavigate
+
     private val repository: IProductRepository = MockApiRepositoryImpl()
 
     fun retrieveProducts() {
@@ -39,5 +43,20 @@ class QuickSellViewModel: ViewModel() {
                 _isBusy.value = false
             }
         })
+    }
+
+    fun updateProductAmount(product: Product, amount: Int) {
+        val productToUpdate = _onGetProducts.value?.find { it.id == product.id }
+        productToUpdate?.amount = amount
+    }
+
+    fun onPayClicked() {
+        var totalPayAmount: Float = 0f
+        _onGetProducts.value?.forEach { product ->
+            if (product.amount != 0) {
+                totalPayAmount += product.price * product.amount
+            }
+        }
+        _onNavigate.value = totalPayAmount
     }
 }

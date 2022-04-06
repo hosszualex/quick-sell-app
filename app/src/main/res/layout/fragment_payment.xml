@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.text.InputType" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.quicksellapp.screens.payment.PaymentViewModel"/>
+
+        <variable
+            name="totalCost"
+            type="java.lang.Float" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/creamWhite"
+        tools:context=".ui.activities.MainActivity">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llButtonContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCash"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:layout_marginVertical="4dp"
+                android:textSize="24sp"
+                android:onClick="@{() -> viewModel.hasPayedProducts(true)}"
+                style="@style/PrimaryButton"
+                android:text="Cash" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCard"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:layout_marginVertical="4dp"
+                android:textSize="24sp"
+                android:onClick="@{() -> viewModel.hasPayedProducts(true)}"
+                style="@style/PrimaryButton"
+                android:text="Card" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                android:layout_width="160dp"
+                android:layout_height="80dp"
+                android:layout_marginVertical="4dp"
+                android:textSize="24sp"
+                android:onClick="@{() -> viewModel.hasPayedProducts(false)}"
+                style="@style/PrimaryButton"
+                android:text="Cancel" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/HeaderText"
+            android:text="@{`Total cost: ` + Float.toString(totalCost) + ` RON`}"
+            app:layout_constraintTop_toBottomOf="@+id/llButtonContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Total cost: 32.44 RON"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

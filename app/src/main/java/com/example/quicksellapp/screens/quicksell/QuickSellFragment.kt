@@ -11,8 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.quicksellapp.databinding.FragmentQuickSellBinding
 import com.example.quicksellapp.model.ErrorResponse
 import com.example.quicksellapp.model.Product
+import android.content.DialogInterface
+import android.text.InputType
+import androidx.appcompat.app.AlertDialog
+import android.widget.EditText
+import com.example.quicksellapp.Constants
+import com.example.quicksellapp.extensions.addFragmentOnTopWithAnimationLeftToRight
+import com.example.quicksellapp.screens.payment.PaymentFragment
 
-class QuickSellFragment: Fragment(), ProductsAdapter.IOnProductClickListener {
+
+class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
     private lateinit var binding: FragmentQuickSellBinding
     private lateinit var viewModel: QuickSellViewModel
     private lateinit var adapter: ProductsAdapter
@@ -31,7 +39,25 @@ class QuickSellFragment: Fragment(), ProductsAdapter.IOnProductClickListener {
 
 
     private val onError = Observer<ErrorResponse> { onError ->
-        Toast.makeText(requireContext(), "Error Message: " + onError.errorMessage + "\nError Code: " + onError.errorCode, Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            requireContext(),
+            "Error Message: " + onError.errorMessage + "\nError Code: " + onError.errorCode,
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private val onNavigate = Observer<Float> { totalPayment ->
+        //TODO Navigate to new screen and pass the payment
+        if (totalPayment != 0f) {
+            activity?.addFragmentOnTopWithAnimationLeftToRight(PaymentFragment().newInstance(totalPayment), Constants.PAYMENT_SCREEN_TAG)
+        } else {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Please select a product!")
+            builder.setPositiveButton("OK") { dialog, _ ->
+                dialog.cancel()
+            }
+            builder.show()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,16 +80,51 @@ class QuickSellFragment: Fragment(), ProductsAdapter.IOnProductClickListener {
     private fun initializeScreen(inflater: LayoutInflater): View {
         binding = FragmentQuickSellBinding.inflate(inflater)
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         binding.executePendingBindings()
         return binding.root
     }
 
     private fun connectViewModel() {
+        //TODO isBusy dialog?
         viewModel.onGetProducts.observe(viewLifecycleOwner, onGetProducts)
         viewModel.onError.observe(viewLifecycleOwner, onError)
+        viewModel.onNavigate.observe(viewLifecycleOwner, onNavigate)
     }
 
-    override fun onProductClicked(order: Product) {
-        //TODO("Not yet implemented")
+    override fun onProductClicked(product: Product) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Please input the amount.")
+        val input = EditText(requireContext())
+        input.inputType =  InputType.TYPE_CLASS_NUMBER
+        builder.setView(input)
+        builder.setPositiveButton("OK") { _, _ ->
+            handlePositiveButtonCase(input, product)
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+        builder.show()
+    }
+
+    private fun handlePositiveButtonCase(
+        input: EditText,
+        product: Product
+    ) {
+        val amount = if (input.editableText.toString().isBlank()) { -1 } else { input.editableText.toString().toInt() }
+        if (amount != -1) {
+            viewModel.updateProductAmount(product, amount)
+            adapter.updateItemStatus(product.id, amount)
+        } else {
+            showWarningDialog()
+        }
+    }
+
+    private fun showWarningDialog() {
+        //TODO how to remove item then
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("The amount has to  be bigger than zero!")
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.cancel()
+        }
+        builder.show()
     }
 }
