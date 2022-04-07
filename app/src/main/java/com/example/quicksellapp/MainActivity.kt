@@ -12,9 +12,11 @@ import com.example.quicksellapp.screens.home.HomeFragment
 import java.util.*
 
 import android.os.Build.VERSION_CODES.N
+import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 
 
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +24,7 @@ class MainActivity : FragmentActivity() {
         val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         this.addFragmentOnTop(HomeFragment(), Constants.HOME_SCREEN_TAG)
+        setSupportActionBar(binding.toolbar)
     }
 
     private fun setupAppLanguage() {
@@ -36,6 +39,17 @@ class MainActivity : FragmentActivity() {
         if (Build.VERSION.SDK_INT >= N)
             createConfigurationContext(config)
         resources.updateConfiguration(config, resources.displayMetrics)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+//        menu.findItem(R.id.menu_logout).isVisible = viewModel.isLogoutVisible().value == true
+//        menu.findItem(R.id.menu_search).isVisible = viewModel.isSearchVisible().value == true
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
 
     override fun onBackPressed() {
