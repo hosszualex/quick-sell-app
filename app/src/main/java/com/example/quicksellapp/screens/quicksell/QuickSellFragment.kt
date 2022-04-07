@@ -11,14 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.quicksellapp.databinding.FragmentQuickSellBinding
 import com.example.quicksellapp.model.ErrorResponse
 import com.example.quicksellapp.model.Product
-import android.content.DialogInterface
 import android.text.InputType
 import androidx.appcompat.app.AlertDialog
 import android.widget.EditText
 import com.example.quicksellapp.Constants
 import com.example.quicksellapp.extensions.addFragmentOnTopWithAnimationLeftToRight
 import com.example.quicksellapp.screens.payment.PaymentFragment
-
 
 class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
     private lateinit var binding: FragmentQuickSellBinding
@@ -36,7 +34,6 @@ class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
         adapter = ProductsAdapter(this)
         binding.rvPosts.adapter = adapter
     }
-
 
     private val onError = Observer<ErrorResponse> { onError ->
         Toast.makeText(
