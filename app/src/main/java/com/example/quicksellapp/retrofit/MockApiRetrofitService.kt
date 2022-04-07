@@ -51,11 +51,11 @@ object MockApiRetrofitService: IMockApiRetrofitService {
 
     private interface IMockApiService {
         @GET("products")
-        fun getOrders(): Call<ArrayList<GetProductsResponse>>
+        fun getProducts(): Call<ArrayList<GetProductsResponse>>
     }
 
     override fun getProducts(listener: IMockApiRetrofitService.IOnGetProducts) {
-        val request = mockApiService.getOrders()
+        val request = mockApiService.getProducts()
         request.enqueue(object: Callback<ArrayList<GetProductsResponse>> {
             override fun onResponse(
                 call: Call<ArrayList<GetProductsResponse>>,

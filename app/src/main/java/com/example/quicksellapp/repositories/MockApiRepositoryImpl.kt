@@ -16,8 +16,8 @@ class MockApiRepositoryImpl : IProductRepository {
     override fun getProducts(listener: IProductRepository.IOnGetProducts) {
         retrofitService.getProducts(object : IMockApiRetrofitService.IOnGetProducts {
             override fun onSuccess(data: ArrayList<GetProductsResponse>) {
-                val deliveryOrders = getDeliveryOrdersFromResponse(data)
-                listener.onSuccess(deliveryOrders)
+                val products = getProductsFromResponse(data)
+                listener.onSuccess(products)
             }
 
             override fun onFailed(error: ErrorResponse) {
@@ -27,11 +27,11 @@ class MockApiRepositoryImpl : IProductRepository {
     }
 
 
-    private fun getDeliveryOrdersFromResponse(data: ArrayList<GetProductsResponse>): List<Product> {
+    private fun getProductsFromResponse(data: ArrayList<GetProductsResponse>): List<Product> {
         val products = mutableListOf<Product>()
-        data.forEach { order ->
+        data.forEach { product ->
             products.add(
-                Product(order.id, order.name, order.category, order.price, order.url_image)
+                Product(product.id, product.name, product.category, product.price, product.url_image)
             )
         }
         products.sortByDescending { it.price }
