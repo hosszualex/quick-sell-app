@@ -4,6 +4,13 @@ object Constants {
     //=====API CONSTANTS=====//
     const val MOCK_API_URL = "https://demo4129247.mockable.io/"
 
+    //=====SHARED PREFERENCES COSNTANTS=====//
+    const val SHARED_PREFERENCES_NAME = "SHARED_PREFERENCES_NAME"
+    const val PREFERENCES_LANGUAGE_KEY = "PREFERENCES_LANGUAGE_KEY"
+
+    const val LOCALE_EN = "en"
+    const val LOCALE_RO = "ro"
+
     //=====FRAGMENT TAGS=====//
     const val HOME_SCREEN_TAG = "HOME_SCREEN_TAG"
     const val QUICK_SELL_SCREEN_TAG = "QUICK_SELL_SCREEN_TAG"

@@ -2,4 +2,22 @@
     <string name="app_name">Quick Sell</string>
     <string name="products_header">Produse</string>
     <string name="quick_sell_string">Vanzare Rapida</string>
+    <string name="language_english">Engleza</string>
+    <string name="language_romanian">Romana</string>
+    <string name="cash">Cash</string>
+    <string name="card">Card</string>
+    <string name="cancel">Anulare</string>
+    <string name="total_cost">Cost total:</string>
+    <string name="currency">RON</string>
+    <string name="pay">Plateste</string>
+    <string name="amount">Numar produse:</string>
+
+    <string name="amount_dialog_title">Va rog sa scrieti numarul de produse</string>
+
+
+    <string name="success_payment_title">Succes!</string>
+    <string name="success_payment_message">Plata dumneavoastra a fost procesata cu succes!</string>
+
+    <string name="warning_dialog_no_product_title">Va rog selectati un produs!</string>
+    <string name="warning_dialog_amount_bigger_than_zero_title">Numarul de produs trebuie sa fie mai mare ca zero!</string>
 </resources>

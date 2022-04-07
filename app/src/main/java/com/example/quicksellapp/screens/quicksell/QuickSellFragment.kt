@@ -15,6 +15,7 @@ import android.text.InputType
 import androidx.appcompat.app.AlertDialog
 import android.widget.EditText
 import com.example.quicksellapp.Constants
+import com.example.quicksellapp.R
 import com.example.quicksellapp.extensions.addFragmentOnTopWithAnimationLeftToRight
 import com.example.quicksellapp.screens.payment.PaymentFragment
 
@@ -44,16 +45,10 @@ class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
     }
 
     private val onNavigate = Observer<Float> { totalPayment ->
-        //TODO Navigate to new screen and pass the payment
         if (totalPayment != 0f) {
             activity?.addFragmentOnTopWithAnimationLeftToRight(PaymentFragment().newInstance(totalPayment), Constants.PAYMENT_SCREEN_TAG)
         } else {
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Please select a product!")
-            builder.setPositiveButton("OK") { dialog, _ ->
-                dialog.cancel()
-            }
-            builder.show()
+            createWarningDialog(resources.getString(R.string.warning_dialog_no_product_title)).show()
         }
     }
 
@@ -61,7 +56,6 @@ class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(QuickSellViewModel::class.java)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,7 +77,6 @@ class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
     }
 
     private fun connectViewModel() {
-        //TODO isBusy dialog?
         viewModel.onGetProducts.observe(viewLifecycleOwner, onGetProducts)
         viewModel.onError.observe(viewLifecycleOwner, onError)
         viewModel.onNavigate.observe(viewLifecycleOwner, onNavigate)
@@ -91,14 +84,14 @@ class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
 
     override fun onProductClicked(product: Product) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Please input the amount.")
+        builder.setTitle(getString(R.string.amount_dialog_title))
         val input = EditText(requireContext())
         input.inputType =  InputType.TYPE_CLASS_NUMBER
         builder.setView(input)
-        builder.setPositiveButton("OK") { _, _ ->
+        builder.setPositiveButton(getString(android.R.string.ok)) { _, _ ->
             handlePositiveButtonCase(input, product)
         }
-        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.cancel() }
         builder.show()
     }
 
@@ -111,17 +104,16 @@ class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
             viewModel.updateProductAmount(product, amount)
             adapter.updateItemStatus(product.id, amount)
         } else {
-            showWarningDialog()
+            createWarningDialog(getString(R.string.warning_dialog_amount_bigger_than_zero_title)).show()
         }
     }
 
-    private fun showWarningDialog() {
-        //TODO how to remove item then
+    private fun createWarningDialog(title: String): AlertDialog {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("The amount has to  be bigger than zero!")
-        builder.setPositiveButton("OK") { dialog, _ ->
+        builder.setTitle(title)
+        builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
             dialog.cancel()
         }
-        builder.show()
+        return builder.create()
     }
 }

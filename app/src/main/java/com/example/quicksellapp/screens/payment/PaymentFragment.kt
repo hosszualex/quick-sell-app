@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.quicksellapp.Constants
+import com.example.quicksellapp.R
 import com.example.quicksellapp.databinding.FragmentPaymentBinding
 import com.example.quicksellapp.extensions.popBackStackUntilFragmentInclusive
 
@@ -19,17 +20,20 @@ class PaymentFragment: Fragment() {
 
     private val onHasPayed = Observer<Boolean> { hasPayed ->
         if (hasPayed) {
-            SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Success!")
-                .setContentText("Your payment has been completed successfully!")
-                .setConfirmClickListener { dialog ->
-                    activity?.popBackStackUntilFragmentInclusive(Constants.QUICK_SELL_SCREEN_TAG)
-                    dialog.dismiss()
-                }
-                .show()
+            createSuccessDialog().show()
         } else {
             activity?.popBackStackUntilFragmentInclusive(Constants.QUICK_SELL_SCREEN_TAG)
         }
+    }
+
+    private fun createSuccessDialog(): SweetAlertDialog {
+        return SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText(resources.getString(R.string.success_payment_title))
+            .setContentText(resources.getString(R.string.success_payment_message))
+            .setConfirmClickListener { dialog ->
+                activity?.popBackStackUntilFragmentInclusive(Constants.QUICK_SELL_SCREEN_TAG)
+                dialog.dismiss()
+            }
     }
 
     fun newInstance(data: Float): PaymentFragment {
@@ -60,7 +64,7 @@ class PaymentFragment: Fragment() {
         binding = FragmentPaymentBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.totalCost = totalCost
+        binding.totalCost = String.format("%.2f", totalCost)
         binding.executePendingBindings()
         return binding.root
     }

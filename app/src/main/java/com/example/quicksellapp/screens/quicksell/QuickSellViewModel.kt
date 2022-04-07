@@ -9,10 +9,6 @@ import com.example.quicksellapp.repositories.IProductRepository
 import com.example.quicksellapp.repositories.MockApiRepositoryImpl
 
 class QuickSellViewModel: ViewModel() {
-    private val _isBusy = MutableLiveData<Boolean>()
-    val isBusy: LiveData<Boolean>
-        get() = _isBusy
-
     private val _onError = MutableLiveData<ErrorResponse>()
     val onError: LiveData<ErrorResponse>
         get() = _onError
@@ -25,22 +21,23 @@ class QuickSellViewModel: ViewModel() {
     val onNavigate: LiveData<Float>
         get() = _onNavigate
 
+    private var isBusy = false
     private val repository: IProductRepository = MockApiRepositoryImpl()
 
     fun retrieveProducts() {
-        if (_isBusy.value != null && _isBusy.value == true) {
+        if (isBusy) {
             return
         }
 
         repository.getProducts(object: IProductRepository.IOnGetProducts{
             override fun onSuccess(products: List<Product>) {
                 _onGetProducts.value = products
-                _isBusy.value = false
+                isBusy = false
             }
 
             override fun onFailed(error: ErrorResponse) {
                 _onError.value = error
-                _isBusy.value = false
+                isBusy = false
             }
         })
     }

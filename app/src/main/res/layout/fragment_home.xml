@@ -8,6 +8,10 @@
 
         <import type="android.view.View" />
 
+        <variable
+            name="currentLanguage"
+            type="java.lang.String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:inputType="@{InputType.TYPE_NULL}"
-                android:text="English"
+                android:text="@{currentLanguage}"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
