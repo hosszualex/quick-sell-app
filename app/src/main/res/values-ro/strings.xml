@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Quick Sell</string>
+    <string name="products_header">Produse</string>
+    <string name="quick_sell_string">Vanzare Rapida</string>
+</resources>
