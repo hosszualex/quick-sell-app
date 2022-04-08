@@ -3,7 +3,6 @@ package com.example.quicksellapp
 import android.os.Build
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentActivity
 import com.example.quicksellapp.databinding.ActivityMainBinding
 import com.example.quicksellapp.extensions.addFragmentOnTop
 import com.example.quicksellapp.extensions.get
@@ -13,6 +12,7 @@ import java.util.*
 
 import android.os.Build.VERSION_CODES.N
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -21,10 +21,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupAppLanguage()
-        val binding : ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val binding: ActivityMainBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         this.addFragmentOnTop(HomeFragment(), Constants.HOME_SCREEN_TAG)
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (lastFragment()?.tag != Constants.HOME_SCREEN_TAG) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            } else {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
+        }
     }
 
     private fun setupAppLanguage() {
@@ -41,22 +51,25 @@ class MainActivity : AppCompatActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-//        menu.findItem(R.id.menu_logout).isVisible = viewModel.isLogoutVisible().value == true
-//        menu.findItem(R.id.menu_search).isVisible = viewModel.isSearchVisible().value == true
-        return super.onPrepareOptionsMenu(menu)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
         val lastFragment = this.lastFragment()
         if (lastFragment is HomeFragment) {
             finish()
-        }else {
+        } else {
             super.onBackPressed()
         }
     }

@@ -1,5 +1,6 @@
 package com.example.quicksellapp.screens.payment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -71,6 +72,10 @@ class PaymentFragment: Fragment() {
 
     private fun connectViewModel() {
         viewModel.onHasPayed.observe(viewLifecycleOwner, onHasPayed)
+    }
+
+    override fun showToolbar(showToolbar: Boolean) {
+        TODO("Not yet implemented")
     }
 
 }
