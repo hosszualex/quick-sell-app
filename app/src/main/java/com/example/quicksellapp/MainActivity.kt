@@ -14,17 +14,17 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupAppLanguage()
-        val binding: ActivityMainBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-        setupToolbar(binding)
-        setupNavigationDrawer(binding)
+        setupToolbar()
+        setupNavigationDrawer()
         this.addFragmentOnTop(HomeFragment(), Constants.HOME_SCREEN_TAG)
     }
     
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
-    private fun setupToolbar(binding: ActivityMainBinding) {
+    private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportFragmentManager.addOnBackStackChangedListener {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupNavigationDrawer(binding: ActivityMainBinding) {
+    private fun setupNavigationDrawer() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             if (menuItem.title == getString(R.string.navigation_item_contacts_page)) {
                 onContactItemClicked()
@@ -83,11 +83,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        if (closeNavDrawerIfOpen()) return
         val lastFragment = this.lastFragment()
         if (lastFragment is HomeFragment) {
             finish()
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun closeNavDrawerIfOpen(): Boolean {
+        if (binding.drawerLayout.isOpen) {
+            binding.drawerLayout.close()
+            return true
+        }
+        return false
     }
 }
