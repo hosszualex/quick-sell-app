@@ -73,9 +73,4 @@ class PaymentFragment: Fragment() {
     private fun connectViewModel() {
         viewModel.onHasPayed.observe(viewLifecycleOwner, onHasPayed)
     }
-
-    override fun showToolbar(showToolbar: Boolean) {
-        TODO("Not yet implemented")
-    }
-
 }
