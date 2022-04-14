@@ -23,35 +23,11 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+        setupToolbar(binding)
+        setupNavigationDrawer(binding)
         this.addFragmentOnTop(HomeFragment(), Constants.HOME_SCREEN_TAG)
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
-            if (menuItem.title == getString(R.string.navigation_item_contacts_page)) {
-                onContactItemClicked()
-            }
-            binding.drawerLayout.close()
-            false
-        }
-
-        supportFragmentManager.addOnBackStackChangedListener {
-            if (lastFragment()?.tag != Constants.HOME_SCREEN_TAG) {
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            } else {
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            }
-        }
     }
-
-    private fun onContactItemClicked() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.contact_alert_title))
-        builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
-            dialog.cancel()
-        }
-        builder.show()
-    }
-
+    
     private fun setupAppLanguage() {
         val sharedPreferences =
             getSharedPreferences(Constants.SHARED_PREFERENCES_NAME, MODE_PRIVATE)
@@ -66,9 +42,35 @@ class MainActivity : AppCompatActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.navigation_drawer_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+    private fun setupToolbar(binding: ActivityMainBinding) {
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (lastFragment()?.tag != Constants.HOME_SCREEN_TAG) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            } else {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
+        }
+    }
+
+    private fun setupNavigationDrawer(binding: ActivityMainBinding) {
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            if (menuItem.title == getString(R.string.navigation_item_contacts_page)) {
+                onContactItemClicked()
+            }
+            binding.drawerLayout.close()
+            false
+        }
+    }
+
+    private fun onContactItemClicked() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.contact_alert_title))
+        builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
+            dialog.cancel()
+        }
+        builder.show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
