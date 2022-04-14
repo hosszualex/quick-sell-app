@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.31979166666666664" />
+        <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/drawable/ic_contact.xml" value="0.32447916666666665" />
+        <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/drawable/ic_hamburger_menu.xml" value="0.32447916666666665" />
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/drawable/ic_launcher1_foreground.xml" value="0.31979166666666664" />
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.31979166666666664" />
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/layout/activity_main.xml" value="0.31431159420289856" />
@@ -12,7 +14,9 @@
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/layout/fragment_quick_sell.xml" value="0.5234375" />
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/layout/list_item_language.xml" value="0.30416666666666664" />
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/layout/list_item_product.xml" value="0.5234375" />
+        <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/menu/navigation_drawer_menu.xml" value="0.30416666666666664" />
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/menu/toolbar_menu.xml" value="0.30416666666666664" />
+        <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_new.xml" value="0.32447916666666665" />
         <entry key="..\:/Projects/Android/quick-sell-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_new_round.xml" value="0.31979166666666664" />
       </map>
     </option>

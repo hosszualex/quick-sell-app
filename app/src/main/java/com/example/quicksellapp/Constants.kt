@@ -4,10 +4,11 @@ object Constants {
     //=====API CONSTANTS=====//
     const val MOCK_API_URL = "https://demo4129247.mockable.io/"
 
-    //=====SHARED PREFERENCES COSNTANTS=====//
+    //=====SHARED PREFERENCES CONSTANTS=====//
     const val SHARED_PREFERENCES_NAME = "SHARED_PREFERENCES_NAME"
     const val PREFERENCES_LANGUAGE_KEY = "PREFERENCES_LANGUAGE_KEY"
 
+    //=====LOCALE RESOURCES=====//
     const val LOCALE_EN = "en"
     const val LOCALE_RO = "ro"
 

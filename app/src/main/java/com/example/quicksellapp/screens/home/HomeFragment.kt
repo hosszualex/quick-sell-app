@@ -20,6 +20,9 @@ import com.example.quicksellapp.screens.quicksell.QuickSellFragment
 class HomeFragment: Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var sharedPreferences: SharedPreferences
+
+    private val englishLanguage: String by lazy { resources.getString(R.string.language_english) }
+    private val romanianLanguage: String by lazy { resources.getString(R.string.language_romanian) }
     private val currentLanguage: String by lazy {
         if (sharedPreferences.getString(Constants.PREFERENCES_LANGUAGE_KEY, Constants.LOCALE_EN) == Constants.LOCALE_EN) {
             englishLanguage
@@ -27,8 +30,6 @@ class HomeFragment: Fragment() {
             romanianLanguage
         }
     }
-    private val englishLanguage: String by lazy { resources.getString(R.string.language_english) }
-    private val romanianLanguage: String by lazy { resources.getString(R.string.language_romanian) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,6 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //TODO ask for token image
         return initializeScreen(inflater)
     }
     private fun initializeScreen(inflater: LayoutInflater): View {
@@ -48,6 +48,7 @@ class HomeFragment: Fragment() {
         binding.lifecycleOwner = this
         binding.currentLanguage = currentLanguage
         binding.executePendingBindings()
+        binding.btnQuickSell.setOnClickListener { activity?.addFragmentOnTopWithAnimationLeftToRight(QuickSellFragment(), Constants.QUICK_SELL_SCREEN_TAG) }
         initializeDropDownLanguage()
         return binding.root
     }
@@ -56,8 +57,6 @@ class HomeFragment: Fragment() {
         val items = listOf(englishLanguage, romanianLanguage)
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item_language, items)
         (binding.tilLanguageMenu.editText as AutoCompleteTextView).setAdapter(adapter)
-        binding.btnQuickSell.setOnClickListener { activity?.addFragmentOnTopWithAnimationLeftToRight(QuickSellFragment(), Constants.QUICK_SELL_SCREEN_TAG) }
-
         binding.tvLanguage.setOnItemClickListener { _, _, _, _ ->
             onLanguageChanged()
         }
@@ -65,6 +64,13 @@ class HomeFragment: Fragment() {
 
     private fun onLanguageChanged() {
         val languageText = binding.tvLanguage.text.toString()
+        if (languageText == currentLanguage) {
+            return
+        }
+        changeLanguage(languageText)
+    }
+
+    private fun changeLanguage(languageText: String) {
         if (languageText == englishLanguage) {
             sharedPreferences.put(Constants.PREFERENCES_LANGUAGE_KEY, Constants.LOCALE_EN)
         } else {
