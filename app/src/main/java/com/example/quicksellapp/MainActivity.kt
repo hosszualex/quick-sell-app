@@ -13,8 +13,6 @@ import android.os.Build.VERSION_CODES.N
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-
 
 class MainActivity : AppCompatActivity() {
 
