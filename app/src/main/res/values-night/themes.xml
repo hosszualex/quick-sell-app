@@ -2,15 +2,16 @@
     <!-- Base application theme. -->
     <style name="Theme.Quicksellapp" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/emeraldGreen</item>
-        <item name="colorPrimaryVariant">@color/emeraldGreen</item>
+        <item name="colorPrimary">@color/lightBlue</item>
+        <item name="colorPrimaryVariant">@color/lightBlue</item>
         <item name="colorOnPrimary">@color/creamWhite</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/emeraldGreen</item>
-        <item name="colorSecondaryVariant">@color/emeraldGreen</item>
+        <item name="colorSecondary">@color/lightBlue</item>
+        <item name="colorSecondaryVariant">@color/lightBlue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>

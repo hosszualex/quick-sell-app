@@ -40,7 +40,6 @@ class HomeFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //TODO ask for token image
         return initializeScreen(inflater)
     }
     private fun initializeScreen(inflater: LayoutInflater): View {

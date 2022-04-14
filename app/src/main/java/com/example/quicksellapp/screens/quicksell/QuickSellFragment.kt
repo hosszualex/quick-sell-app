@@ -83,10 +83,14 @@ class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
     }
 
     override fun onProductClicked(product: Product) {
+        showProductAmountAlert(product)
+    }
+
+    private fun showProductAmountAlert(product: Product) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.amount_dialog_title))
         val input = EditText(requireContext())
-        input.inputType =  InputType.TYPE_CLASS_NUMBER
+        input.inputType = InputType.TYPE_CLASS_NUMBER
         builder.setView(input)
         builder.setPositiveButton(getString(android.R.string.ok)) { _, _ ->
             handlePositiveButtonCase(input, product)

@@ -18,6 +18,6 @@
     <string name="success_payment_title">Succes!</string>
     <string name="success_payment_message">Plata dumneavoastra a fost procesata cu succes!</string>
 
-    <string name="warning_dialog_no_product_title">Va rog selectati un produs!</string>
-    <string name="warning_dialog_amount_bigger_than_zero_title">Numarul de produs trebuie sa fie mai mare ca zero!</string>
+    <string name="warning_dialog_no_product_title">Va rog selectati macar un produs!</string>
+    <string name="warning_dialog_amount_bigger_than_zero_title">Numarul de produse trebuie sa fie mai mare ca zero!</string>
 </resources>

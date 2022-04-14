@@ -9,10 +9,9 @@ import com.example.quicksellapp.extensions.get
 import com.example.quicksellapp.extensions.lastFragment
 import com.example.quicksellapp.screens.home.HomeFragment
 import java.util.*
-
 import android.os.Build.VERSION_CODES.N
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -27,6 +26,20 @@ class MainActivity : AppCompatActivity() {
         this.addFragmentOnTop(HomeFragment(), Constants.HOME_SCREEN_TAG)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            if (menuItem.title == "Contacts Page") {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Contact contact@tokeninc.com for any help or inquires.")
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
+                    dialog.cancel()
+                }
+                builder.show()
+            }
+            binding.drawerLayout.close()
+            false
+        }
 
         supportFragmentManager.addOnBackStackChangedListener {
             if (lastFragment()?.tag != Constants.HOME_SCREEN_TAG) {
@@ -52,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menuInflater.inflate(R.menu.navigation_drawer_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
