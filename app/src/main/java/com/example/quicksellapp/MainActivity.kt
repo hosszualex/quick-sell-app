@@ -26,16 +26,9 @@ class MainActivity : AppCompatActivity() {
         this.addFragmentOnTop(HomeFragment(), Constants.HOME_SCREEN_TAG)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-
         binding.navView.setNavigationItemSelectedListener { menuItem ->
-            if (menuItem.title == "Contacts Page") {
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("Contact contact@tokeninc.com for any help or inquires.")
-                builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
-                    dialog.cancel()
-                }
-                builder.show()
+            if (menuItem.title == getString(R.string.navigation_item_contacts_page)) {
+                onContactItemClicked()
             }
             binding.drawerLayout.close()
             false
@@ -48,6 +41,15 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
         }
+    }
+
+    private fun onContactItemClicked() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.contact_alert_title))
+        builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
+            dialog.cancel()
+        }
+        builder.show()
     }
 
     private fun setupAppLanguage() {
