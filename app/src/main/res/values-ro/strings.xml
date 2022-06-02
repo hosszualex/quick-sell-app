@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Quick Sell</string>
+    <string name="products_header">Produse</string>
+    <string name="quick_sell_string">Vanzare Rapida</string>
+    <string name="language_english">Engleza</string>
+    <string name="language_romanian">Romana</string>
+    <string name="cash">Cash</string>
+    <string name="card">Card</string>
+    <string name="cancel">Anulare</string>
+    <string name="total_cost">Cost total:</string>
+    <string name="currency">RON</string>
+    <string name="pay">Plateste</string>
+    <string name="amount">Numar produse:</string>
+    <string name="swipe_tip">Sfat: Puteti glisa de la stanga la dreapta pentru a deschide meniul pe oricare ecran!</string>
+
+    <string name="amount_dialog_title">Va rog sa scrieti numarul de produse</string>
+
+    <string name="success_payment_title">Succes!</string>
+    <string name="success_payment_message">Plata dumneavoastra a fost procesata cu succes!</string>
+
+    <string name="warning_dialog_no_product_title">Va rog selectati macar un produs!</string>
+    <string name="warning_dialog_amount_bigger_than_zero_title">Numarul de produse trebuie sa fie mai mare ca zero!</string>
+
+    <string name="navigation_item_contacts_page">Contact</string>
+
+    <string name="contact_alert_title">Scrieti la contact@tokeninc.com pentru ajutor sau intrebari.</string>
+</resources>
