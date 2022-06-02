@@ -2,7 +2,6 @@ package com.example.quicksellapp
 
 import android.content.Context
 import android.content.ContextWrapper
-import android.os.Build
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.quicksellapp.databinding.ActivityMainBinding
@@ -15,6 +14,7 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.example.quicksellapp.model.ErrorResponse
 import com.example.quicksellapp.model.Product
 import com.example.quicksellapp.repositories.IProductRepository
-import com.example.quicksellapp.repositories.MockApiRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class QuickSellViewModel: ViewModel() {
+@HiltViewModel
+class QuickSellViewModel @Inject constructor(private val repository: IProductRepository): ViewModel() {
     private val _onError = MutableLiveData<ErrorResponse>()
     val onError: LiveData<ErrorResponse>
         get() = _onError
@@ -22,7 +24,6 @@ class QuickSellViewModel: ViewModel() {
         get() = _onNavigate
 
     private var isBusy = false
-    private val repository: IProductRepository = MockApiRepositoryImpl()
 
     fun retrieveProducts() {
         if (isBusy) {

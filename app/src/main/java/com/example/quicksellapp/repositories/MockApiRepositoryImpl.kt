@@ -4,14 +4,9 @@ import com.example.quicksellapp.model.ErrorResponse
 import com.example.quicksellapp.model.GetProductsResponse
 import com.example.quicksellapp.model.Product
 import com.example.quicksellapp.retrofit.IMockApiRetrofitService
-import com.example.quicksellapp.retrofit.MockApiRetrofitService
+import javax.inject.Inject
 
-class MockApiRepositoryImpl : IProductRepository {
-    private val retrofitService: IMockApiRetrofitService
-
-    init {
-        retrofitService = MockApiRetrofitService
-    }
+class MockApiRepositoryImpl @Inject constructor(private val retrofitService: IMockApiRetrofitService): IProductRepository {
 
     override fun getProducts(listener: IProductRepository.IOnGetProducts) {
         retrofitService.getProducts(object : IMockApiRetrofitService.IOnGetProducts {

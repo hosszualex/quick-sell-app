@@ -18,7 +18,9 @@ import com.example.quicksellapp.Constants
 import com.example.quicksellapp.R
 import com.example.quicksellapp.extensions.addFragmentOnTopWithAnimationLeftToRight
 import com.example.quicksellapp.screens.payment.PaymentFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QuickSellFragment : Fragment(), ProductsAdapter.IOnProductClickListener {
     private lateinit var binding: FragmentQuickSellBinding
     private lateinit var viewModel: QuickSellViewModel
